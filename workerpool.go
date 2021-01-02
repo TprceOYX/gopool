@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"sync/atomic"
 )
 
@@ -31,10 +30,6 @@ func (wp *WorkerPool) init() *WorkerPool {
 }
 
 func (wp *WorkerPool) Run(t Task) {
-	wp.RunWithCtx(context.Background(), t)
-}
-
-func (wp *WorkerPool) RunWithCtx(ctx context.Context, t Task) {
 	if atomic.LoadInt32(&wp.close) > 0 {
 		panic("workerpool has been closed")
 	}
